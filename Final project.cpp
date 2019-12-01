@@ -34,12 +34,16 @@ int main(){
 		scanf("%d", &pilihan);
 		switch(pilihan){
 			case 1 :
+				//no_tiket, no_kendaraan, jenis, bobot, tujuan(KETAPANG, PADANG BAI, LEMBAR, TANJUNG PERAK)
 				break;
 			case 2 :
+				//bisa ubah semua 
 				break;
 			case 3 :
+				//cari berdasarkan NOMOR KENDARAAN, NOMOR TIKET, BOBOT KENDARAAN
 				break;
 			case 4 :
+				//tampilkan ascending / descending berdasarkan NOMOR TIKET, NOMOR KENDARAAN, JENIS KENDARAAN, OBOT, TUJUAN, TANGGAL
 				break;
 			case 5 :
 				status=pilihan;

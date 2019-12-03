@@ -12,7 +12,7 @@ struct tanggal{
 };
 
 struct kendaraan{
-   char no_tiket[100];
+   int no_tiket;
    char no_kendaraan[100];
    char jenis[100];
    float bobot;
@@ -114,8 +114,7 @@ void input(){
 	printf("|                        Form Input Data                        |\n");
 	printf("=================================================================\n");
 	fflush(stdin);
-	printf("| Masukkan No Tiket              : ");
-	gets(bermotor[i].no_tiket);
+	bermotor[i].no_tiket = i + 1;
 	printf("-----------------------------------------------------------------\n");
 	fflush(stdin);
 	printf("| Masukkan Tanggal(dd mouth yyyy): ");
@@ -146,7 +145,7 @@ void input(){
 	}
 	printf("-----------------------------------------------------------------\n");
 	fflush(stdin);
-	printf("| Masukkan Bobot Kendaraan(Kg)   : ");
+	printf("| Masukkan Bobot Kendaraan(Ton)   : ");
 	scanf("%f", &bermotor[i].bobot);
 	printf("-----------------------------------------------------------------\n");
 	fflush(stdin);
@@ -180,7 +179,7 @@ void lihat(){
 			printf("=================================================================\n");
 			printf("|                           View Data                           |\n");
 			printf("=================================================================\n");
-			printf("| No Tiket        : %s\n", bermotor[a].no_tiket);
+			printf("| No Tiket        : %d\n", bermotor[a].no_tiket);
 			printf("| Tanggal         : %d %s %d\n", bermotor[a].tanggal.hari, bermotor[a].tanggal.bulan, bermotor[a].tanggal.tahun);
 			printf("| Nopol Kendaraan : %s\n", bermotor[a].no_kendaraan);
 			printf("| Jenis Kendaraan : %s\n", bermotor[a].jenis);
@@ -193,32 +192,26 @@ void lihat(){
 }
 
 void ubah(){	
-	char caritiket[100];
+	int caritiket;
 	int low=0, high=i-1, pos, ketemu=0;
 	bool berhenti = false;  
   
  	fflush(stdin);
 	printf("masukkan no tiket yang di cari : ");
-	gets(caritiket);
+	scanf("%d", &caritiket);
 	
-//	if(strcmp(bermotor[0].no_tiket,caritiket)==0){
-//			printf("ketemu");
-//	}else
-//	printf("gaono");
-//	getch();
 	while(berhenti ==false){
 		
 		pos = (caritiket-bermotor[low].no_tiket)/(bermotor[high].no_tiket-bermotor[low].no_tiket)*(high-low)+low;
 		printf("pos %d",pos);
-		if(strcmp(bermotor[pos].no_tiket,caritiket)==0){
-			printf("ketemu");
+		if(bermotor[pos].no_tiket == caritiket){
 			ketemu = 1;
 			berhenti = true;
 		}
-		else if(strcmp(bermotor[pos].no_tiket,caritiket)==1){
+		else if(bermotor[pos].no_tiket < caritiket){
 			high = pos - 1;
 		}
-		else if(strcmp(bermotor[pos].no_tiket,caritiket)==-1){
+		else if(bermotor[pos].no_tiket > caritiket){
 			low = pos + 1;
 		}
 	}	
@@ -228,9 +221,7 @@ void ubah(){
 		printf("|                         Form ubah Data                        |\n");
 		printf("=================================================================\n");
 		fflush(stdin);
-		printf("| Masukkan No Tiket              : ");
-		gets(bermotor[pos].no_tiket);
-		printf("-----------------------------------------------------------------\n");
+		bermotor[pos].no_tiket = i;
 		fflush(stdin);
 		printf("| Masukkan Tanggal(dd mouth yyyy): ");
 		scanf("%d %s %d", &bermotor[pos].tanggal.hari,&bermotor[pos].tanggal.bulan,&bermotor[pos].tanggal.tahun);
@@ -260,7 +251,7 @@ void ubah(){
 		}
 		printf("-----------------------------------------------------------------\n");
 		fflush(stdin);
-		printf("| Masukkan Bobot Kendaraan(Kg)   : ");
+		printf("| Masukkan Bobot Kendaraan(Ton)   : ");
 		scanf("%f", &bermotor[pos].bobot);
 		printf("-----------------------------------------------------------------\n");
 		fflush(stdin);
@@ -281,17 +272,17 @@ void ubah(){
 		printf("-----------------------------------------------------------------\n");
 	}
 	else
-		printf("data TIDAK DITEMUKAN");  
+		printf("Data TIDAK DITEMUKAN");  
 	getch();
 }
 void caritiket(){	
-	char caritiket[100];
+	int caritiket;
 	int low=0, high=i-1, pos, ketemu=0;
 	bool berhenti = false;  
   
  	fflush(stdin);
 	printf("masukkan no tiket yang di cari : ");
-	gets(caritiket);
+	scanf("%d", &caritiket);
 	
 //	if(strcmp(bermotor[0].no_tiket,caritiket)==0){
 //			printf("ketemu");
@@ -302,15 +293,15 @@ void caritiket(){
 		
 		pos = (caritiket-bermotor[low].no_tiket)/(bermotor[high].no_tiket-bermotor[low].no_tiket)*(high-low)+low;
 		printf("pos %d",pos);
-		if(strcmp(bermotor[pos].no_tiket,caritiket)==0){
+		if(bermotor[pos].no_tiket == caritiket){
 			printf("ketemu");
 			ketemu = 1;
 			berhenti = true;
 		}
-		else if(strcmp(bermotor[pos].no_tiket,caritiket)==1){
+		else if(bermotor[pos].no_tiket < caritiket){
 			high = pos - 1;
 		}
-		else if(strcmp(bermotor[pos].no_tiket,caritiket)==-1){
+		else if(bermotor[pos].no_tiket > caritiket){
 			low = pos + 1;
 		}
 	}

@@ -25,6 +25,7 @@ struct kendaraan{
 kendaraan bermotor[100];
 int status=0, pilihan, i=0, kriteria;
 
+void kosong();
 void input();
 void ubah();
 void lihat();
@@ -54,52 +55,66 @@ main(){
 				input();
 				break;
 			case 2 :
-				ubah();
+				if(i==0)
+					kosong();
+				else
+					ubah();
 				break;
 			case 3 :
-				printf("cari berdasarkan kriteria : \n");
-				printf("1. no tiket \n2. nopol kendaraan \n3. bobot kendaraan\n");
-				printf("masukkan pilihan : ");
-				scanf("%d",&kriteria);
-				switch(kriteria){
-					case 1 :
-						caritiket();		
-					break;
-					case 2 :
-						carinopol();
-					break;
-					case 3 :
-						caribobot();
-					break;
+				if(i==0)
+					kosong();
+				else{
+					printf("cari berdasarkan kriteria : \n");
+					printf("1. no tiket \n2. nopol kendaraan \n3. bobot kendaraan\n");
+					printf("masukkan pilihan : ");
+					scanf("%d",&kriteria);
+					switch(kriteria){
+						case 1 :
+							caritiket();		
+						break;
+						case 2 :
+							carinopol();
+						break;
+						case 3 :
+							caribobot();
+						break;
+					}	
 				}
 				break;
 			case 4 :
-				lihat();
+				if(i==0)
+					kosong();
+				else
+					lihat();
 				break;
 			case 5 :
-				printf("sorting berdasarkan kriteria : \n");
-				printf("1. no tiket \n2. nopol kendaraan \n3. jenis kendaraan \n4. bobot kendaraan \n5. tujuan \n6. tanggal");
-				printf("masukkan pilihan : ");
-				scanf("%d",&kriteria);
-				switch(kriteria){
-					case 1 :
-								
-					break;
-					case 2 :
-						
-					break;
-					case 3 :
-						
-					break;
-					case 4 :
-						
-					break;
-					case 5 :
-						
-					break;
-					case 6 :
-						
-					break;
+				if(i==0)
+					kosong();
+				else{
+					printf("sorting berdasarkan kriteria : \n");
+					printf("1. no tiket \n2. nopol kendaraan \n3. jenis kendaraan \n4. bobot kendaraan \n5. tujuan \n6. tanggal\n");
+					printf("masukkan pilihan : ");
+					scanf("%d",&kriteria);
+					switch(kriteria){
+						case 1 :
+									
+						break;
+						case 2 :
+							
+						break;
+						case 3 :
+							
+						break;
+						case 4 :
+							
+						break;
+						case 5 :
+							
+						break;
+						case 6 :
+							
+						break;
+					}	
 				}
 				break;
 			case 6 :
@@ -109,6 +124,15 @@ main(){
 				break;
 		}
 	}
+}
+
+void kosong(){
+	printf("===================================\n");
+	printf("|                                 |\n");
+	printf("|        ~~ DATA KOSONG ~~        |\n");
+	printf("|                                 |\n");
+	printf("===================================\n");
+	getch();
 }
 
 void input(){
@@ -193,45 +217,35 @@ void input(){
 }
 
 void lihat(){
-	if(i==0){
-		printf("===================================\n");
-		printf("|                                 |\n");
-		printf("|        ~~ DATA KOSONG ~~        |\n");
-		printf("|                                 |\n");
-		printf("===================================\n");
-	}else{
-		for(int a=0; a<i; a++){
-			printf("=================================================================\n");
-			printf("|                           View Data                           |\n");
-			printf("=================================================================\n");
-			printf("| No Tiket        : %d\n", bermotor[a].no_tiket);
-			printf("| Tanggal         : %d %s %d\n", bermotor[a].tanggal.hari, bermotor[a].tanggal.bulan, bermotor[a].tanggal.tahun);
-			printf("| Nopol Kendaraan : %s\n", bermotor[a].no_kendaraan);
-			printf("| Jenis Kendaraan : %s\n", bermotor[a].jenis);
-			printf("| Bobot Kendaraan : %.2f Ton\n", bermotor[a].bobot);
-			printf("| Tujuan          : %s\n", bermotor[a].tujuan);
-			printf("=================================================================\n");
-		}	
-	}
+	for(int a=0; a<i; a++){
+		printf("=================================================================\n");
+		printf("|                           View Data                           |\n");
+		printf("=================================================================\n");
+		printf("| No Tiket        : %d\n", bermotor[a].no_tiket);
+		printf("| Tanggal         : %d %s %d\n", bermotor[a].tanggal.hari, bermotor[a].tanggal.bulan, bermotor[a].tanggal.tahun);
+		printf("| Nopol Kendaraan : %s\n", bermotor[a].no_kendaraan);
+		printf("| Jenis Kendaraan : %s\n", bermotor[a].jenis);
+		printf("| Bobot Kendaraan : %.2f Ton\n", bermotor[a].bobot);
+		printf("| Tujuan          : %s\n", bermotor[a].tujuan);
+		printf("=================================================================\n");
+	}	
 	getch();
 }
 
 void ubah(){	
 	int caritiket;
 	int low=0, high=i-1, pos, ketemu=0;
-	bool berhenti = false;  
   
  	fflush(stdin);
 	printf("masukkan no tiket yang di cari : ");
 	scanf("%d", &caritiket);
 	
-	while(berhenti ==false){
-		
+	for(int a=0;a<=high;a++){
 		pos = (caritiket-bermotor[low].no_tiket)/(bermotor[high].no_tiket-bermotor[low].no_tiket)*(high-low)+low;
-		printf("pos %d",pos);
+		
 		if(bermotor[pos].no_tiket == caritiket){
 			ketemu = 1;
-			berhenti = true;
+			break;
 		}
 		else if(bermotor[pos].no_tiket < caritiket){
 			high = pos - 1;
@@ -246,14 +260,17 @@ void ubah(){
 		printf("|                         Form ubah Data                        |\n");
 		printf("=================================================================\n");
 		fflush(stdin);
-		bermotor[pos].no_tiket = i;
+		bermotor[pos].no_tiket = caritiket;
+		printf("-----------------------------------------------------------------\n");
 		fflush(stdin);
-		printf("| Masukkan Tanggal(dd mouth yyyy): ");
+		printf("| Masukkan Tanggal(dd month yyyy): ");
 		scanf("%d %s %d", &bermotor[pos].tanggal.hari,&bermotor[pos].tanggal.bulan,&bermotor[pos].tanggal.tahun);
+		bermotor[pos].tanggal.jbulan = hitungchar(bermotor[pos].tanggal.bulan);
 		printf("-----------------------------------------------------------------\n");
 		fflush(stdin);
 		printf("| Masukkan Nopol Kendaraan       : ");
 		gets(bermotor[pos].no_kendaraan);
+		bermotor[pos].jno_kendaraan = hitungchar(bermotor[pos].no_kendaraan);
 		printf("-----------------------------------------------------------------\n");
 		fflush(stdin);
 		printf("| Pilih Jenis Kendaraan");
@@ -261,17 +278,29 @@ void ubah(){
 		printf("| Masukkan Jenis Kendaraan       : ");
 		scanf("%d", &jenis);
 		switch(jenis){
-			case 1 : strcpy(bermotor[pos].jenis, "Truk");
+			case 1 : 
+				strcpy(bermotor[pos].jenis, "Truk");
+				bermotor[pos].jjenis = hitungchar(bermotor[pos].jenis);
 			break;
-			case 2 : strcpy(bermotor[pos].jenis, "Pick Up");
+			case 2 : 
+				strcpy(bermotor[pos].jenis, "Pick Up");
+				bermotor[pos].jjenis = hitungchar(bermotor[pos].jenis);
 			break;
-			case 3 : strcpy(bermotor[pos].jenis, "Bus");
+			case 3 : 
+				strcpy(bermotor[pos].jenis, "Bus");
+				bermotor[pos].jjenis = hitungchar(bermotor[pos].jenis);
 			break;
-			case 4 : strcpy(bermotor[pos].jenis, "Minibus");
+			case 4 : 
+				strcpy(bermotor[pos].jenis, "Minibus");
+				bermotor[pos].jjenis = hitungchar(bermotor[pos].jenis);
 			break;
-			case 5 : strcpy(bermotor[pos].jenis, "Sedan");
+			case 5 : 
+				strcpy(bermotor[pos].jenis, "Sedan");
+				bermotor[pos].jjenis = hitungchar(bermotor[pos].jenis);
 			break;
-			case 6 : strcpy(bermotor[pos].jenis, "Motor");
+			case 6 : 
+				strcpy(bermotor[pos].jenis, "Motor");
+				bermotor[pos].jjenis = hitungchar(bermotor[pos].jenis);
 			break;
 		}
 		printf("-----------------------------------------------------------------\n");
@@ -285,79 +314,94 @@ void ubah(){
 		printf("| Masukkan Tujuan                : ");
 		scanf("%d",&tujuan);
 		switch(tujuan){
-			case 1 : strcpy(bermotor[pos].tujuan, "Ketapang");
+			case 1 : 
+				strcpy(bermotor[pos].tujuan, "Ketapang");
+				bermotor[pos].jtujuan = hitungchar(bermotor[pos].tujuan);
 			break;
-			case 2 : strcpy(bermotor[pos].tujuan, "Padang Bai");
+			case 2 : 
+				strcpy(bermotor[pos].tujuan, "Padang Bai");
+				bermotor[pos].jtujuan = hitungchar(bermotor[pos].tujuan);
 			break;
-			case 3 : strcpy(bermotor[pos].tujuan, "Lembar");
+			case 3 : 
+				strcpy(bermotor[pos].tujuan, "Lembar");
+				bermotor[pos].jtujuan = hitungchar(bermotor[pos].tujuan);
 			break;
-			case 4 : strcpy(bermotor[pos].tujuan, "Tanjung Perak");
+			case 4 : 
+				strcpy(bermotor[pos].tujuan, "Tanjung Perak");
+				bermotor[pos].jtujuan = hitungchar(bermotor[pos].tujuan);
 			break;	
 		}
 		printf("-----------------------------------------------------------------\n");
 	}
-	else
-		printf("Data TIDAK DITEMUKAN");  
+	else{
+		printf("====================================\n");
+		printf("|                                  |\n");
+		printf("|    ~~ DATA TIDAK DITEMUKAN ~~    |\n");
+		printf("|                                  |\n");
+		printf("====================================\n");
+	}  
 	getch();
 }
 void caritiket(){	
 	int caritiket;
 	int low=0, high=i-1, pos, ketemu=0;
-	bool berhenti = false;
+  
  	fflush(stdin);
 	printf("masukkan no tiket yang di cari : ");
 	scanf("%d", &caritiket);
 	
-	while(berhenti ==false){
-		
+	for(int a=0;a<=high;a++){	
 		pos = (caritiket-bermotor[low].no_tiket)/(bermotor[high].no_tiket-bermotor[low].no_tiket)*(high-low)+low;
-		printf("pos %d",pos);
-		if(bermotor[pos].no_tiket == caritiket){
-			//printf("ketemu");
-			ketemu = 1;
-			berhenti = true;
-		}
-		else if(bermotor[pos].no_tiket < caritiket){
-			high = pos - 1;
-		}
-		else if(bermotor[pos].no_tiket > caritiket){
-			low = pos + 1;
+		if(pos>=0 && pos<=high){
+			if(bermotor[pos].no_tiket == caritiket){
+				ketemu = 1;
+				break;
+			}
+			else if(bermotor[pos].no_tiket < caritiket){
+				high = pos - 1;
+			}
+			else if(bermotor[pos].no_tiket > caritiket){
+				low = pos + 1;
+			}
 		}
 	}
-	if(ketemu>0){
+	if(ketemu==1){
 		printf("=================================================================\n");
-			printf("|                           View Data                           |\n");
-			printf("=================================================================\n");
-			printf("| No Tiket        : %s\n", bermotor[pos].no_tiket);
-			printf("| Tanggal         : %d %s %d\n", bermotor[pos].tanggal.hari, bermotor[pos].tanggal.bulan, bermotor[pos].tanggal.tahun);
-			printf("| Nopol Kendaraan : %s\n", bermotor[pos].no_kendaraan);
-			printf("| Jenis Kendaraan : %s\n", bermotor[pos].jenis);
-			printf("| Bobot Kendaraan : %.2f Kg\n", bermotor[pos].bobot);
-			printf("| Tujuan          : %s\n", bermotor[pos].tujuan);
-			printf("=================================================================\n");
+		printf("|                           View Data                           |\n");
+		printf("=================================================================\n");
+		printf("| No Tiket        : %d\n", bermotor[pos].no_tiket);
+		printf("| Tanggal         : %d %s %d\n", bermotor[pos].tanggal.hari, bermotor[pos].tanggal.bulan, bermotor[pos].tanggal.tahun);
+		printf("| Nopol Kendaraan : %s\n", bermotor[pos].no_kendaraan);
+		printf("| Jenis Kendaraan : %s\n", bermotor[pos].jenis);
+		printf("| Bobot Kendaraan : %.2f Kg\n", bermotor[pos].bobot);
+		printf("| Tujuan          : %s\n", bermotor[pos].tujuan);
+		printf("=================================================================\n");
 	}
-	else
-		printf("Data tidak ditemukan");  
+	else{
+		printf("====================================\n");
+		printf("|                                  |\n");
+		printf("|    ~~ DATA TIDAK DITEMUKAN ~~    |\n");
+		printf("|                                  |\n");
+		printf("====================================\n");
+	}  
 	getch();
 }
 
 void carinopol(){
 	char carinopol[100];
+	int jnopol;
 	int low=0, high=i-1, pos, ketemu=0;
-	bool berhenti = false;  
   
  	fflush(stdin);
 	printf("masukkan nopol kendaraan yang di cari : ");
 	gets(carinopol);
+	jnopol = hitungchar(carinopol);
 
-	while(berhenti ==false){
-		
-		pos = (carinopol-bermotor[low].no_kendaraan)/(bermotor[high].no_kendaraan-bermotor[low].no_kendaraan)*(high-low)+low;
-		printf("pos %d",pos);
+	for(int a=0;a<=high;a++){
+		pos = (jnopol-bermotor[low].jno_kendaraan)/(bermotor[high].jno_kendaraan-bermotor[low].jno_kendaraan)*(high-low)+low;
 		if(strcmp(bermotor[pos].no_kendaraan,carinopol)==0){
-			printf("ketemu");
 			ketemu = 1;
-			berhenti = true;
+			break;
 		}
 		else if(strcmp(bermotor[pos].no_kendaraan,carinopol)==1){
 			high = pos - 1;
@@ -368,65 +412,70 @@ void carinopol(){
 	}	
 	if(ketemu==1){
 		printf("=================================================================\n");
-			printf("|                           View Data                           |\n");
-			printf("=================================================================\n");
-			printf("| No Tiket        : %s\n", bermotor[pos].no_tiket);
-			printf("| Tanggal         : %d %s %d\n", bermotor[pos].tanggal.hari, bermotor[pos].tanggal.bulan, bermotor[pos].tanggal.tahun);
-			printf("| Nopol Kendaraan : %s\n", bermotor[pos].no_kendaraan);
-			printf("| Jenis Kendaraan : %s\n", bermotor[pos].jenis);
-			printf("| Bobot Kendaraan : %.2f Kg\n", bermotor[pos].bobot);
-			printf("| Tujuan          : %s\n", bermotor[pos].tujuan);
-			printf("=================================================================\n");
+		printf("|                           View Data                           |\n");
+		printf("=================================================================\n");
+		printf("| No Tiket        : %d\n", bermotor[pos].no_tiket);
+		printf("| Tanggal         : %d %s %d\n", bermotor[pos].tanggal.hari, bermotor[pos].tanggal.bulan, bermotor[pos].tanggal.tahun);
+		printf("| Nopol Kendaraan : %s\n", bermotor[pos].no_kendaraan);
+		printf("| Jenis Kendaraan : %s\n", bermotor[pos].jenis);
+		printf("| Bobot Kendaraan : %.2f Kg\n", bermotor[pos].bobot);
+		printf("| Tujuan          : %s\n", bermotor[pos].tujuan);
+		printf("=================================================================\n");
 	}
-	else
-		printf("data TIDAK DITEMUKAN");  
+	else{
+		printf("====================================\n");
+		printf("|                                  |\n");
+		printf("|    ~~ DATA TIDAK DITEMUKAN ~~    |\n");
+		printf("|                                  |\n");
+		printf("====================================\n");
+	}  
 	getch();
 }
 
 void caribobot(){
 	float caribobot;
 	int low=0, high=i-1, pos, ketemu=0;
-	bool berhenti = false;  
-  
+	    
  	fflush(stdin);
 	printf("masukkan bobot kendaraan yang di cari : ");
 	scanf("%f",&caribobot);
 	
-//	if(bermotor[pos].bobot == caribobot){
-//			printf("ketemu");
-//	}else
-//	printf("gaono");
-//	getch();
-	while(berhenti ==false){
-		
+	for(int a=0;a<=high;a++){
 		pos = (caribobot-bermotor[low].bobot)/(bermotor[high].bobot-bermotor[low].bobot)*(high-low)+low;
-		printf("%d",pos);
-		if(bermotor[pos].bobot == caribobot){
-			printf("ketemu");
-			ketemu = 1;
-			berhenti = true;
+		if(pos>=0 && pos<=high){
+			if(bermotor[pos].bobot == caribobot){
+				ketemu = 1;
+				break;
+			}
+			else if(bermotor[pos].bobot > caribobot){
+				high = pos - 1;
+			}
+			else if(bermotor[pos].bobot < caribobot){
+				low = pos + 1;
+			}	
 		}
-		else if(bermotor[pos].bobot > caribobot){
-			high = pos - 1;
-		}
-		else if(bermotor[pos].bobot < caribobot){
-			low = pos + 1;
-		}
-	}	
+		
+	}
 	if(ketemu==1){
 		printf("=================================================================\n");
-			printf("|                           View Data                           |\n");
-			printf("=================================================================\n");
-			printf("| No Tiket        : %s\n", bermotor[pos].no_tiket);
-			printf("| Tanggal         : %d %s %d\n", bermotor[pos].tanggal.hari, bermotor[pos].tanggal.bulan, bermotor[pos].tanggal.tahun);
-			printf("| Nopol Kendaraan : %s\n", bermotor[pos].no_kendaraan);
-			printf("| Jenis Kendaraan : %s\n", bermotor[pos].jenis);
-			printf("| Bobot Kendaraan : %.2f Kg\n", bermotor[pos].bobot);
-			printf("| Tujuan          : %s\n", bermotor[pos].tujuan);
-			printf("=================================================================\n");
+		printf("|                           View Data                           |\n");
+		printf("=================================================================\n");
+		printf("| No Tiket        : %d\n", bermotor[pos].no_tiket);
+		printf("| Tanggal         : %d %s %d\n", bermotor[pos].tanggal.hari, bermotor[pos].tanggal.bulan, bermotor[pos].tanggal.tahun);
+		printf("| Nopol Kendaraan : %s\n", bermotor[pos].no_kendaraan);
+		printf("| Jenis Kendaraan : %s\n", bermotor[pos].jenis);
+		printf("| Bobot Kendaraan : %.2f Ton\n", bermotor[pos].bobot);
+		printf("| Tujuan          : %s\n", bermotor[pos].tujuan);
+		printf("=================================================================\n");
 	}
-	else
-		printf("data TIDAK DITEMUKAN");  
+	else{
+		printf("====================================\n");
+		printf("|                                  |\n");
+		printf("|    ~~ DATA TIDAK DITEMUKAN ~~    |\n");
+		printf("|                                  |\n");
+		printf("====================================\n");
+	}
+		
 	getch();
 }
 
@@ -446,4 +495,7 @@ int hitungchar(char name[]){
 		batas--;
 	}
 	return jumlah;
+}
+
+void sorttiket(){
 }

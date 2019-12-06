@@ -23,7 +23,8 @@ struct kendaraan{
 };
 
 kendaraan bermotor[100];
-int status=0, pilihan, i=0, kriteria;
+kendaraan sementara[100];
+int status=0, pilihan, i=0, kriteria, indexing[100];
 
 void kosong();
 void input();
@@ -33,6 +34,9 @@ void caribobot();
 void carinopol();
 void caritiket();
 int hitungchar(char name[]);
+void mergesorting(int temp[], int awal, int akhir);
+void sorttiket(int temp[], int awal, int tengah, int akhir);
+
 
 main(){
 	while (status==0){
@@ -97,7 +101,7 @@ main(){
 					scanf("%d",&kriteria);
 					switch(kriteria){
 						case 1 :
-									
+							mergesorting(indexing, 0, i-1);
 						break;
 						case 2 :
 							
@@ -497,5 +501,79 @@ int hitungchar(char name[]){
 	return jumlah;
 }
 
-void sorttiket(){
+void mergesorting(int temp[], int awal, int akhir){
+	int tengah;
+	
+	if(akhir>awal){
+		tengah=(akhir+awal)/2;
+		//pisah kiri
+		mergesorting(temp, awal, tengah);
+		//pisah kanan
+		mergesorting(temp, (tengah+1), akhir);
+		
+		sorttiket(temp, awal, (tengah+1), akhir);
+	}
+}
+
+void sorttiket(int temp[], int awal, int tengah, int akhir){
+	int kiri, jumlah, temp_pos;
+	
+	kiri = (tengah-1);
+	temp_pos = awal;
+	jumlah = (akhir-awal)+1;
+	
+	while((awal<=kiri) && (tengah<=akhir)){
+		if(bermotor[awal].no_tiket >= bermotor[tengah].no_tiket){
+			sementara[temp_pos].no_tiket = bermotor[awal].no_tiket;
+			sementara[temp_pos].bobot = bermotor[awal].bobot;
+			strcpy(sementara[temp_pos].jenis, bermotor[awal].jenis);
+			strcpy(sementara[temp_pos].no_kendaraan, bermotor[awal].no_kendaraan);
+			sementara[temp_pos].tanggal = bermotor[awal].tanggal;
+			strcpy(sementara[temp_pos].tujuan, bermotor[awal].tujuan);
+			temp_pos = temp_pos+1;
+			awal = awal+1;
+		}else{
+			sementara[temp_pos].no_tiket = bermotor[tengah].no_tiket;
+			sementara[temp_pos].bobot = bermotor[tengah].bobot;
+			strcpy(sementara[temp_pos].jenis, bermotor[tengah].jenis);
+			strcpy(sementara[temp_pos].no_kendaraan, bermotor[tengah].no_kendaraan);
+			sementara[temp_pos].tanggal = bermotor[tengah].tanggal;
+			strcpy(sementara[temp_pos].tujuan, bermotor[tengah].tujuan);
+			temp_pos = temp_pos+1;
+			tengah = tengah+1;
+		}
+	}
+	
+	while(awal <= kiri){
+		sementara[temp_pos].no_tiket = bermotor[awal].no_tiket;
+		sementara[temp_pos].bobot = bermotor[awal].bobot;
+		strcpy(sementara[temp_pos].jenis, bermotor[awal].jenis);
+		strcpy(sementara[temp_pos].no_kendaraan, bermotor[awal].no_kendaraan);
+		sementara[temp_pos].tanggal = bermotor[awal].tanggal;
+		strcpy(sementara[temp_pos].tujuan, bermotor[awal].tujuan);
+		awal = awal+1;
+		temp_pos = temp_pos+1;
+	}
+	
+	while(tengah <= akhir){
+		sementara[temp_pos].no_tiket = bermotor[tengah].no_tiket;
+		sementara[temp_pos].bobot = bermotor[tengah].bobot;
+		strcpy(sementara[temp_pos].jenis, bermotor[tengah].jenis);
+		strcpy(sementara[temp_pos].no_kendaraan, bermotor[tengah].no_kendaraan);
+		sementara[temp_pos].tanggal = bermotor[tengah].tanggal;
+		strcpy(sementara[temp_pos].tujuan, bermotor[tengah].tujuan);
+		tengah = tengah+1;
+		temp_pos = temp_pos+1;
+	}
+	
+	for(int i=0; i<jumlah;i++){
+		strcpy(bermotor[akhir].tujuan, sementara[akhir].tujuan);
+		bermotor[akhir].bobot= sementara[akhir].bobot;
+		strcpy(bermotor[akhir].jenis, sementara[akhir].jenis);
+		strcpy(bermotor[akhir].no_kendaraan, sementara[akhir].no_kendaraan);
+		bermotor[akhir].no_tiket= sementara[akhir].no_tiket;
+		bermotor[akhir].tanggal= sementara[akhir].tanggal;
+		
+		akhir = akhir-1;
+	}
 }

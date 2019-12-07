@@ -24,7 +24,7 @@ struct kendaraan{
 
 kendaraan bermotor[100];
 kendaraan sementara[100];
-int status=0, pilihan, i=0, kriteria, indexing[100];
+int status=0, pilihan, i=0, metode, kriteria, kriteria1, kriteria2, indexing[100];
 
 void kosong();
 void input();
@@ -34,9 +34,12 @@ void caribobot();
 void carinopol();
 void caritiket();
 int hitungchar(char name[]);
-void mergesorting(int temp[], int awal, int akhir);
-void sorttiket(int temp[], int awal, int tengah, int akhir);
-
+void descendingtiket(int temp[], int awal, int akhir);
+void sortdescendingtiket(int temp[], int awal, int tengah, int akhir);
+void descendingbobot(int temp[], int awal, int akhir);
+void sortdescendingbobot(int temp[], int awal, int tengah, int akhir);
+void descendingtujuan(int temp[], int awal, int akhir);
+void sortdescendingtujuan(int temp[], int awal, int tengah, int akhir);
 
 main(){
 	while (status==0){
@@ -96,30 +99,64 @@ main(){
 					kosong();
 				else{
 					printf("sorting berdasarkan kriteria : \n");
-					printf("1. no tiket \n2. nopol kendaraan \n3. jenis kendaraan \n4. bobot kendaraan \n5. tujuan \n6. tanggal\n");
+					printf("1. Ascending \n2. Descending");
 					printf("masukkan pilihan : ");
-					scanf("%d",&kriteria);
-					switch(kriteria){
-						case 1 :
-							mergesorting(indexing, 0, i-1);
+					scanf("%d",&metode);
+					switch(metode){
+						case 1 : 
+							printf("Ascending\n");
+							printf("1. no tiket \n2. nopol kendaraan \n3. jenis kendaraan \n4. bobot kendaraan \n5. tujuan \n6. tanggal\n");
+							printf("masukkan pilihan : ");
+							scanf("%d",&kriteria1);
+							switch(kriteria1){
+								case 1 :
+									
+								break;
+								case 2 :
+									
+								break;
+								case 3 :
+									
+								break;
+								case 4 :
+									
+								break;
+								case 5 :
+									
+								break;
+								case 6 :
+									
+								break;
+							}
 						break;
 						case 2 :
-							
-						break;
-						case 3 :
-							
-						break;
-						case 4 :
-							
-						break;
-						case 5 :
-							
-						break;
-						case 6 :
-							
-						break;
-					}	
-				}
+							printf("Descending");
+							printf("1. no tiket \n2. nopol kendaraan \n3. jenis kendaraan \n4. bobot kendaraan \n5. tujuan \n6. tanggal\n");
+							printf("masukkan pilihan : ");
+							scanf("%d",&kriteria2);
+							switch(kriteria2){
+								case 1 :
+									descendingtiket(indexing, 0, i-1);
+								break;
+								case 2 :
+									
+								break;
+								case 3 :
+									
+								break;
+								case 4 :
+									descendingbobot(indexing, 0, i-1);
+								break;
+								case 5 :
+									descendingtujuan(indexing, 0, i-1);
+								break;
+								case 6 :
+									
+								break;
+							}
+							break;
+						}	
+					}
 				break;
 			case 6 :
 				status=pilihan;
@@ -501,21 +538,21 @@ int hitungchar(char name[]){
 	return jumlah;
 }
 
-void mergesorting(int temp[], int awal, int akhir){
+void descendingtiket(int temp[], int awal, int akhir){
 	int tengah;
 	
 	if(akhir>awal){
 		tengah=(akhir+awal)/2;
 		//pisah kiri
-		mergesorting(temp, awal, tengah);
+		descendingtiket(temp, awal, tengah);
 		//pisah kanan
-		mergesorting(temp, (tengah+1), akhir);
+		descendingtiket(temp, (tengah+1), akhir);
 		
-		sorttiket(temp, awal, (tengah+1), akhir);
+		sortdescendingtiket(temp, awal, (tengah+1), akhir);
 	}
 }
 
-void sorttiket(int temp[], int awal, int tengah, int akhir){
+void sortdescendingtiket(int temp[], int awal, int tengah, int akhir){
 	int kiri, jumlah, temp_pos;
 	
 	kiri = (tengah-1);
@@ -524,6 +561,162 @@ void sorttiket(int temp[], int awal, int tengah, int akhir){
 	
 	while((awal<=kiri) && (tengah<=akhir)){
 		if(bermotor[awal].no_tiket >= bermotor[tengah].no_tiket){
+			sementara[temp_pos].no_tiket = bermotor[awal].no_tiket;
+			sementara[temp_pos].bobot = bermotor[awal].bobot;
+			strcpy(sementara[temp_pos].jenis, bermotor[awal].jenis);
+			strcpy(sementara[temp_pos].no_kendaraan, bermotor[awal].no_kendaraan);
+			sementara[temp_pos].tanggal = bermotor[awal].tanggal;
+			strcpy(sementara[temp_pos].tujuan, bermotor[awal].tujuan);
+			temp_pos = temp_pos+1;
+			awal = awal+1;
+		}else{
+			sementara[temp_pos].no_tiket = bermotor[tengah].no_tiket;
+			sementara[temp_pos].bobot = bermotor[tengah].bobot;
+			strcpy(sementara[temp_pos].jenis, bermotor[tengah].jenis);
+			strcpy(sementara[temp_pos].no_kendaraan, bermotor[tengah].no_kendaraan);
+			sementara[temp_pos].tanggal = bermotor[tengah].tanggal;
+			strcpy(sementara[temp_pos].tujuan, bermotor[tengah].tujuan);
+			temp_pos = temp_pos+1;
+			tengah = tengah+1;
+		}
+	}
+	
+	while(awal <= kiri){
+		sementara[temp_pos].no_tiket = bermotor[awal].no_tiket;
+		sementara[temp_pos].bobot = bermotor[awal].bobot;
+		strcpy(sementara[temp_pos].jenis, bermotor[awal].jenis);
+		strcpy(sementara[temp_pos].no_kendaraan, bermotor[awal].no_kendaraan);
+		sementara[temp_pos].tanggal = bermotor[awal].tanggal;
+		strcpy(sementara[temp_pos].tujuan, bermotor[awal].tujuan);
+		awal = awal+1;
+		temp_pos = temp_pos+1;
+	}
+	
+	while(tengah <= akhir){
+		sementara[temp_pos].no_tiket = bermotor[tengah].no_tiket;
+		sementara[temp_pos].bobot = bermotor[tengah].bobot;
+		strcpy(sementara[temp_pos].jenis, bermotor[tengah].jenis);
+		strcpy(sementara[temp_pos].no_kendaraan, bermotor[tengah].no_kendaraan);
+		sementara[temp_pos].tanggal = bermotor[tengah].tanggal;
+		strcpy(sementara[temp_pos].tujuan, bermotor[tengah].tujuan);
+		tengah = tengah+1;
+		temp_pos = temp_pos+1;
+	}
+	
+	for(int i=0; i<jumlah;i++){
+		strcpy(bermotor[akhir].tujuan, sementara[akhir].tujuan);
+		bermotor[akhir].bobot= sementara[akhir].bobot;
+		strcpy(bermotor[akhir].jenis, sementara[akhir].jenis);
+		strcpy(bermotor[akhir].no_kendaraan, sementara[akhir].no_kendaraan);
+		bermotor[akhir].no_tiket= sementara[akhir].no_tiket;
+		bermotor[akhir].tanggal= sementara[akhir].tanggal;
+		
+		akhir = akhir-1;
+	}
+}
+
+void descendingbobot(int temp[], int awal, int akhir){
+	int tengah;
+	
+	if(akhir>awal){
+		tengah=(akhir+awal)/2;
+		//pisah kiri
+		descendingbobot(temp, awal, tengah);
+		//pisah kanan
+		descendingbobot(temp, (tengah+1), akhir);
+		
+		sortdescendingbobot(temp, awal, (tengah+1), akhir);
+	}
+}
+
+void sortdescendingbobot(int temp[], int awal, int tengah, int akhir){
+	
+	int kiri, jumlah, temp_pos;
+	
+	kiri = (tengah-1);
+	temp_pos = awal;
+	jumlah = (akhir-awal)+1;
+	
+	while((awal<=kiri) && (tengah<=akhir)){
+		if(bermotor[awal].bobot >= bermotor[tengah].bobot){
+			sementara[temp_pos].no_tiket = bermotor[awal].no_tiket;
+			sementara[temp_pos].bobot = bermotor[awal].bobot;
+			strcpy(sementara[temp_pos].jenis, bermotor[awal].jenis);
+			strcpy(sementara[temp_pos].no_kendaraan, bermotor[awal].no_kendaraan);
+			sementara[temp_pos].tanggal = bermotor[awal].tanggal;
+			strcpy(sementara[temp_pos].tujuan, bermotor[awal].tujuan);
+			temp_pos = temp_pos+1;
+			awal = awal+1;
+		}else{
+			sementara[temp_pos].no_tiket = bermotor[tengah].no_tiket;
+			sementara[temp_pos].bobot = bermotor[tengah].bobot;
+			strcpy(sementara[temp_pos].jenis, bermotor[tengah].jenis);
+			strcpy(sementara[temp_pos].no_kendaraan, bermotor[tengah].no_kendaraan);
+			sementara[temp_pos].tanggal = bermotor[tengah].tanggal;
+			strcpy(sementara[temp_pos].tujuan, bermotor[tengah].tujuan);
+			temp_pos = temp_pos+1;
+			tengah = tengah+1;
+		}
+	}
+	
+	while(awal <= kiri){
+		sementara[temp_pos].no_tiket = bermotor[awal].no_tiket;
+		sementara[temp_pos].bobot = bermotor[awal].bobot;
+		strcpy(sementara[temp_pos].jenis, bermotor[awal].jenis);
+		strcpy(sementara[temp_pos].no_kendaraan, bermotor[awal].no_kendaraan);
+		sementara[temp_pos].tanggal = bermotor[awal].tanggal;
+		strcpy(sementara[temp_pos].tujuan, bermotor[awal].tujuan);
+		awal = awal+1;
+		temp_pos = temp_pos+1;
+	}
+	
+	while(tengah <= akhir){
+		sementara[temp_pos].no_tiket = bermotor[tengah].no_tiket;
+		sementara[temp_pos].bobot = bermotor[tengah].bobot;
+		strcpy(sementara[temp_pos].jenis, bermotor[tengah].jenis);
+		strcpy(sementara[temp_pos].no_kendaraan, bermotor[tengah].no_kendaraan);
+		sementara[temp_pos].tanggal = bermotor[tengah].tanggal;
+		strcpy(sementara[temp_pos].tujuan, bermotor[tengah].tujuan);
+		tengah = tengah+1;
+		temp_pos = temp_pos+1;
+	}
+	
+	for(int i=0; i<jumlah;i++){
+		strcpy(bermotor[akhir].tujuan, sementara[akhir].tujuan);
+		bermotor[akhir].bobot= sementara[akhir].bobot;
+		strcpy(bermotor[akhir].jenis, sementara[akhir].jenis);
+		strcpy(bermotor[akhir].no_kendaraan, sementara[akhir].no_kendaraan);
+		bermotor[akhir].no_tiket= sementara[akhir].no_tiket;
+		bermotor[akhir].tanggal= sementara[akhir].tanggal;
+		
+		akhir = akhir-1;
+	}
+}
+
+void descendingtujuan(int temp[], int awal, int akhir){
+	int tengah;
+	
+	if(akhir>awal){
+		tengah=(akhir+awal)/2;
+		//pisah kiri
+		descendingtujuan(temp, awal, tengah);
+		//pisah kanan
+		descendingtujuan(temp, (tengah+1), akhir);
+		
+		sortdescendingtujuan(temp, awal, (tengah+1), akhir);
+	}
+}
+
+void sortdescendingtujuan(int temp[], int awal, int tengah, int akhir){
+	
+	int kiri, jumlah, temp_pos;
+	
+	kiri = (tengah-1);
+	temp_pos = awal;
+	jumlah = (akhir-awal)+1;
+	printf("print tujuan : %d",bermotor[awal].jtujuan);
+	while((awal<=kiri) && (tengah<=akhir)){
+		if(bermotor[awal].jtujuan >= bermotor[tengah].jtujuan){
 			sementara[temp_pos].no_tiket = bermotor[awal].no_tiket;
 			sementara[temp_pos].bobot = bermotor[awal].bobot;
 			strcpy(sementara[temp_pos].jenis, bermotor[awal].jenis);

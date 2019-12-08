@@ -208,43 +208,43 @@ void input(){
 	fflush(stdin);
 	printf("| Masukkan Tanggal(dd month yyyy): ");
 	scanf("%d %s %d", &bermotor[i].tanggal.hari,&bermotor[i].tanggal.bulan,&bermotor[i].tanggal.tahun);
-	if (bermotor[i].tanggal.bulan == "Januari" || bermotor[i].tanggal.bulan == "januari"){
+	if (strcmp(bermotor[i].tanggal.bulan, "Januari") == 0 || strcmp(bermotor[i].tanggal.bulan, "januari") == 0){
 		bermotor[i].tanggal.jbulan = 1;
 	}
-	else if (bermotor[i].tanggal.bulan == "Februari" || bermotor[i].tanggal.bulan == "februari"){
+	else if (strcmp(bermotor[i].tanggal.bulan, "Februari") == 0|| strcmp(bermotor[i].tanggal.bulan, "februari") == 0){
 		bermotor[i].tanggal.jbulan = 2;
 	}
-	else if (bermotor[i].tanggal.bulan == "Maret" || bermotor[i].tanggal.bulan == "maret"){
+	else if (strcmp(bermotor[i].tanggal.bulan, "Maret") == 0 || strcmp(bermotor[i].tanggal.bulan, "maret") == 0){
 		bermotor[i].tanggal.jbulan = 3;
 	}
-	else if (bermotor[i].tanggal.bulan == "April" || bermotor[i].tanggal.bulan == "april"){
+	else if (strcmp(bermotor[i].tanggal.bulan, "April") == 0 || strcmp(bermotor[i].tanggal.bulan, "april") == 0){
 		bermotor[i].tanggal.jbulan = 4;
 	}
-	else if (bermotor[i].tanggal.bulan == "Mei" || bermotor[i].tanggal.bulan == "mei"){
+	else if (strcmp(bermotor[i].tanggal.bulan, "Mei") == 0 || strcmp(bermotor[i].tanggal.bulan, "mei") == 0){
 		bermotor[i].tanggal.jbulan = 5;
 	}
-	else if (bermotor[i].tanggal.bulan == "Juni" || bermotor[i].tanggal.bulan == "juni"){
+	else if (strcmp(bermotor[i].tanggal.bulan, "Juni") == 0 || strcmp(bermotor[i].tanggal.bulan, "juni") == 0){
 		bermotor[i].tanggal.jbulan = 6;
 	}
-	else if (bermotor[i].tanggal.bulan == "Juli" || bermotor[i].tanggal.bulan == "juli" || bermotor[i].tanggal.bulan == "July" || bermotor[i].tanggal.bulan == "july"){
+	else if (strcmp(bermotor[i].tanggal.bulan, "Juli") == 0 || strcmp(bermotor[i].tanggal.bulan, "juli") == 0){
 		bermotor[i].tanggal.jbulan = 7;
 	}
-	else if (bermotor[i].tanggal.bulan == "Agustus" || bermotor[i].tanggal.bulan == "agustus"){
+	else if (strcmp(bermotor[i].tanggal.bulan, "Agustus") == 0 || strcmp(bermotor[i].tanggal.bulan, "agustus") == 0){
 		bermotor[i].tanggal.jbulan = 8;
 	}
-	else if (bermotor[i].tanggal.bulan == "September" || bermotor[i].tanggal.bulan == "september"){
+	else if (strcmp(bermotor[i].tanggal.bulan, "September") == 0 || strcmp(bermotor[i].tanggal.bulan, "september") == 0){
 		bermotor[i].tanggal.jbulan = 9;
 	}
-	else if (bermotor[i].tanggal.bulan == "Oktober" || bermotor[i].tanggal.bulan == "oktober"){
+	else if (strcmp(bermotor[i].tanggal.bulan, "Oktober") == 0 || strcmp(bermotor[i].tanggal.bulan, "oktober") == 0){
 		bermotor[i].tanggal.jbulan = 10;
 	}
-	else if (bermotor[i].tanggal.bulan == "November" || bermotor[i].tanggal.bulan == "November"){
+	else if (strcmp(bermotor[i].tanggal.bulan, "November") == 0 || strcmp(bermotor[i].tanggal.bulan, "november") == 0){
 		bermotor[i].tanggal.jbulan = 11;
 	}
-	else if (bermotor[i].tanggal.bulan == "Desember" || bermotor[i].tanggal.bulan == "desember"){
+	else if (strcmp(bermotor[i].tanggal.bulan, "Desember") == 0 || strcmp(bermotor[i].tanggal.bulan, "desember") == 0){
 		bermotor[i].tanggal.jbulan = 12;
 	}
-	bermotor[i].tanggal.jtanggal = (bermotor[i].tanggal.tahun*100) + (bermotor[i].tanggal.jbulan) +(bermotor[i].tanggal.hari/100);
+	bermotor[i].tanggal.jtanggal = (bermotor[i].tanggal.tahun*10000) + (bermotor[i].tanggal.jbulan*100) +(bermotor[i].tanggal.hari);
 	printf("-----------------------------------------------------------------\n");
 	fflush(stdin);
 	printf("| Masukkan Nopol Kendaraan       : ");
@@ -311,6 +311,9 @@ void input(){
 		break;	
 	}
 	printf("-----------------------------------------------------------------\n");
+	
+	printf("%d", bermotor[i].jno_kendaraan);
+	getch();
 	i++;
 }
 
@@ -497,15 +500,17 @@ void carinopol(){
 
 	for(int a=0;a<=high;a++){
 		pos = (jnopol-bermotor[low].jno_kendaraan)/(bermotor[high].jno_kendaraan-bermotor[low].jno_kendaraan)*(high-low)+low;
-		if(strcmp(bermotor[pos].no_kendaraan,carinopol)==0){
-			ketemu = 1;
-			break;
-		}
-		else if(strcmp(bermotor[pos].no_kendaraan,carinopol)==1){
-			high = pos - 1;
-		}
-		else if(strcmp(bermotor[pos].no_kendaraan,carinopol)==-1){
-			low = pos + 1;
+		if(pos>=0 && pos<=high){
+			if(bermotor[pos].jno_kendaraan == jnopol){
+				ketemu = 1;
+				break;
+			}
+			else if(bermotor[pos].jno_kendaraan < jnopol){
+				high = pos - 1;
+			}
+			else if(bermotor[pos].jno_kendaraan > jnopol){
+				low = pos + 1;
+			}
 		}
 	}	
 	if(ketemu==1){
@@ -579,14 +584,14 @@ void caribobot(){
 
 int hitungchar(char name[]){
 	int jumlah = 0;
-	int indeks = 0, indeksd = 0;
-	int batas = 100;
+	int indeks = 0;
+	int batas = 10000;
 	
 	while(name[indeks] != NULL){
 		int cek = name[indeks];
 		jumlah = jumlah + (batas*cek);
 		indeks++;
-		batas = batas/100;
+		batas = batas/2;
 	}
 	return jumlah;
 }

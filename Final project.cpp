@@ -410,20 +410,20 @@ void ubah(){
 	printf("| Masukkan No Tiket Yang Akan di Ubah : ");
 	scanf("%d", &caritiket);
 	printf("=================================================================\n");
-	
-	for(int a=0;a<i;a++){	
+		
+	for(int a=0;a<i;a++){
 		pos = (caritiket-bermotor[low].no_tiket)/(bermotor[high].no_tiket-bermotor[low].no_tiket)*(high-low)+low;
 		if(pos>=0 && pos<=high){
 			if(bermotor[pos].no_tiket == caritiket){
 				ketemu = 1;
 				break;
 			}
-			else if(bermotor[pos].no_tiket < caritiket){
+			else if(bermotor[pos].no_tiket > caritiket){
 				high = pos - 1;
 			}
-			else if(bermotor[pos].no_tiket > caritiket){
+			else if(bermotor[pos].no_tiket < caritiket){
 				low = pos + 1;
-			}
+			}	
 		}
 	}	
 	if(ketemu==1){
@@ -595,8 +595,8 @@ void carinopol(){
 	
 	for(int a=0;a<i;a++){
 		pos = (jnopol-bermotor[low].jno_kendaraan)/(bermotor[high].jno_kendaraan-bermotor[low].jno_kendaraan)*(high-low)+low;
-		printf("jnopol : %d\n",jnopol);
-		printf("jkendaraaan : %d\n",bermotor[pos].jno_kendaraan);
+		//printf("jnopol : %d\n",jnopol);
+		//printf("jkendaraaan : %d\n",bermotor[pos].jno_kendaraan);
 		if(pos>=0 && pos<=high){
 			if(bermotor[pos].jno_kendaraan == jnopol){
 				ketemu = 1;
